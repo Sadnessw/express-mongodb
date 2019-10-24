@@ -7,17 +7,15 @@ const todos = [
 ];
 
 const server = http.createServer((req, res) => {
-  const { headers } = req;
-
-  res.statusCode = 404;
-  res.writeHead('Content-Type', 'application/json');
-  res.writeHead('X-Powered-By', 'Node.js');
+  res.writeHead(200, {
+    'Content-Type': 'application/json',
+    'X-Powered-By': 'Node.js',
+  });
 
   const data = JSON.stringify({
-    success: false,
-    error: 'Not Found',
-    data: null,
-    // data: todos,
+    success: true,
+    error: null,
+    data: todos,
   });
 
   res.end(data);
