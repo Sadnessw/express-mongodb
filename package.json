@@ -1,0 +1,16 @@
+{
+  "name": "udemy-node",
+  "version": "1.0.0",
+  "description": "Node.js API Masterclass With Express & MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "nodemon": "nodemon server.js"
+  },
+  "author": "Anton",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
