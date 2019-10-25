@@ -7,28 +7,50 @@ const todos = [
 ];
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-    'X-Powered-By': 'Node.js',
-  });
+  const { method, url } = req;
 
-  console.log(req.headers.authorization);
+  const response = {
+    success: false,
+    data: null,
+    error: null,
+  };
+
   let body = [];
+  let status = 404;
 
   req.on('data', chunk => {
     body.push(chunk);
+
   }).on('end', () => {
-    body = Buffer.concat(body);
-    console.log(body);
-  });
+    body = Buffer.concat(body).toString();
 
-  const data = JSON.stringify({ 
-    success: true,
-    error: null,
-    data: todos,
-  });
+    if (method === 'GET' && url === '/todos') {
+      status = 200;
+      response.success = true;
+      response.data = todos;
+    } else if (method === 'POST' && url === '/todos') {
+      const { id, text } = JSON.parse(body);
 
-  res.end(data);
+      if (!id || !text) {
+        status = 400;
+        response.error = 'Please add id and text';
+      } else {
+        todos.push({ id, text });
+
+        status = 201;
+        response.success = true;
+        response.data = todos;
+      }
+    };
+
+    res.writeHead(status, {
+      'Content-Type': 'application/json',
+      'X-Powered-By': 'Node.js',
+    });
+
+
+    res.end(JSON.stringify(response));
+  });
 });
 
 const PORT = 5000;
