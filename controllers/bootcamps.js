@@ -2,14 +2,14 @@
 // @route       GET /api/v1/bootcamps
 // @access      Public
 exports.getBootcamps = (req, res, next) => {
-    res.status(200).json({ success: true, msg: `Get all bootcamps` });
+    res.status(200).json({ success: true, msg: `Get all bootcamps`, hello: req.hello });
 };
 
 // @desc        Get single bootcamps
 // @route       GET /api/v1/bootcamps/:id
 // @access      Public
 exports.getBootcamp = (req, res, next) => {
-    res.status(200).json({ success: true, msg: `Show bootcamp ${req.params.id}` }); 
+    res.status(200).json({ success: true, msg: `Show bootcamp ${req.params.id}` });
 };
 
 // @desc        Create new bootcamp
